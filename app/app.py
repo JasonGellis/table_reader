@@ -2,6 +2,15 @@ import os
 import pytesseract
 from PIL import Image
 import pandas as pd
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+
+def index():
+
+    return "Congratulations, it's a web app!"
 
 # Function to extract data from images and create DataFrame
 def table_reader(input_dir, output_dir, output_file_name=None):

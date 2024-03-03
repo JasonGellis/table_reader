@@ -4,13 +4,13 @@ from PIL import Image
 import pandas as pd
 from flask import Flask
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-@app.route("/")
+# @app.route("/")
 
-def index():
+# def index():
 
-    return "Congratulations, it's a web app!"
+#     return "Congratulations, it's a web app!"
 
 # Function to extract data from images and create DataFrame
 def table_reader(input_dir, output_dir, output_file_name=None):

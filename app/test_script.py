@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 # Path to the image file
-image_path = ""
+image_path = "/Users/jasongellis/Desktop/test.png"
 
 # Read the image using OpenCV
 image = cv2.imread(image_path)
@@ -30,9 +30,16 @@ extracted_text = pytesseract.image_to_string(normalized_image, lang = 'eng')
 lines = extracted_text.strip().split('\n')
 data = [line.split() for line in lines]
 
+# Determine the maximum number of columns in the data
+num_columns = max(len(row) for row in data)
+
+# Pad rows with fewer columns to match the maximum number of columns in the data
+for i, row in enumerate(data):
+    data[i] += [''] * (num_columns - len(row))
+
 # Create a DataFrame from the extracted data
 df = pd.DataFrame(data)
-
+        
 # remove unusual characters
 # Remove « character from all columns and rows
 df_cleaned = df.map(lambda x: x.replace('«', '').replace('°', '') if isinstance(x, str) else x)

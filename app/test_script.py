@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 # Path to the image file
-image_path = "/"
+image_path = ""
 
 # Read the image using OpenCV
 image = cv2.imread(image_path)
@@ -24,7 +24,7 @@ max_val = np.max(gray_image)
 normalized_image = cv2.normalize(gray_image, None, min_intensity, max_intensity, cv2.NORM_MINMAX)
 
 # Perform OCR using Tesseract
-extracted_text = pytesseract.image_to_string(normalized_image)
+extracted_text = pytesseract.image_to_string(normalized_image, lang = 'eng')
 
 # Preprocess the extracted text
 lines = extracted_text.strip().split('\n')
@@ -49,5 +49,3 @@ quality to at least 300 dpi.
 '''
 # Display the DataFrame
 print(f"{df_cleaned}\n{ocr_message}")
-
-

@@ -9,7 +9,7 @@ def read_images(input_dir):
     Import images from a directory.
 
     Parameters:
-        directory (str): Path to the directory containing images.
+        input_dir (str): Path to the directory containing images.
 
     Returns:
         images (list): List of imported images.
@@ -24,7 +24,10 @@ def read_images(input_dir):
             image = cv2.imread(image_path)
             if image is not None:  # Check if the image was successfully loaded
                 images.append(image)
+            else:  # Raise an error if the image failed to load
+                raise ValueError(f"Failed to load image: {image_path}")
     return images
+
 
 def convert_to_grayscale(images):
     """
@@ -60,8 +63,8 @@ def normalize_images(grayscale_images):
     # Iterate over each grayscale image in the input list
     for grayscale_image in grayscale_images:
         # Calculate the minimum and maximum intensity values of the image
-        min_intensity = grayscale_images.min()
-        max_intensity = grayscale_images.max()
+        min_intensity = min(grayscale_image.ravel())
+        max_intensity = max(grayscale_image.ravel())
 
         # Normalize the image to stretch contrast
         normalized_image = cv2.normalize(grayscale_image, None, min_intensity, max_intensity, cv2.NORM_MINMAX)
@@ -69,6 +72,7 @@ def normalize_images(grayscale_images):
         normalized_images.append(normalized_image)
 
     return normalized_images
+
 
 def perform_ocr(normalized_images):
     """

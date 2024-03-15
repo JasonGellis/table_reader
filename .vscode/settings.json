@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
+        "imshow",
         "pytesseract"
-    ]
+    ],
+
+    "python.pythonPath": "/Users/jasongellis/miniconda3/envs/table_reader/bin/python"
 }

@@ -7,9 +7,7 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 - Image Import: Table Reader allows users to import images containing tables from a specified directory. 
 - Optical character recognition (OCR) Processing: Utilizing the powerful Tesseract OCR engine, Table Reader accurately extracts text from images, including tables and tabular data.
 - Data Extraction: The application processes extracted text to identify and extract tabular data, preserving the structure of tables found in the input images.
-
-- Data Cleaning: Table Reader includes functionality to clean and pre-process extracted data, removing special characters and ensuring consistent formatting.
-
+- Data Cleaning: Table Reader includes functionality to clean and pre-process extracted data, removing special characters while preserving decimal values and English letters, and ensuring consistent formatting.
 - Data Export: Once the data is extracted and cleaned, Table Reader enables users to export the data to a structured format, such as CSV files, for further analysis in statistical software or spreadsheet applications.
 
 ## Why Use Table Reader?
@@ -24,6 +22,8 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 - Webapp interface
 - Upload multiple images 
 - Ability to select/deselect image and OCR processing
+- Support for special and non-English characters
+- Ability to handle numbers with a "mid-dot" or "decimal comma" (e.g., writing 2.9 as 2·9). 
 
 ## How to cite
 

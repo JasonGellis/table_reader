@@ -25,10 +25,10 @@ def main():
     images = read_images(args.input_dir)
     grayscale_images = convert_to_grayscale(images)    
     normalized_images = normalize_images(grayscale_images)
-    perform_ocr(normalized_images)
-    process_text()
-    pad_columns()
-    df = create_dataframe()
+    extracted_text = perform_ocr(normalized_images)
+    processed_text = process_text(extracted_text)
+    padded_columns = pad_columns(processed_text)
+    df = create_dataframe(padded_columns)
     save_dataframe_to_directory(df, args.output_dir, 'output.csv')
 
     # You can access the directories from other modules using config.INPUT_DIR and config.OUTPUT_DIR

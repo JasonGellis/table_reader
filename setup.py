@@ -7,9 +7,9 @@ with open("requirements.txt", "r") as f:
 setup(
     name="Table Reader",
     version="1.0",
-    description="A Python package for stone tool analysis",
+    description="A python app for extracting data from images",
     download_url="https://github.com/JasonGellis/table_reader",
-    author="Jason Gellis",
+    author="Jason Jacob Gellis",
     author_email="jg760@cam.ac.uk",
     license="MIT",
     keywords=['data extraction', 'data analysis', 'optical character recognition', 'computer vision'],

@@ -185,5 +185,5 @@ node_modules
 .sass-cache
 
 # IDE
-.vscode
+.vscode/
 !.vscode/launch.json

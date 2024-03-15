@@ -25,4 +25,3 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 - Ability to handle numbers with a "mid-dot" or "decimal comma" (e.g., writing 2.9 as 2·9). 
 
 ## How to cite
-

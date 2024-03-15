@@ -1,8 +1,8 @@
 import argparse
 from read_and_process import read_images, convert_to_grayscale, normalize_images, \
-    perform_ocr, process_text,pad_columns, create_dataframe, save_dataframe_to_directory
+    perform_ocr, process_text,pad_columns, create_dataframe, save_dataframe_to_directory, \
+    remove_special_characters
 import config
-
 
 def parse_arguments():
     """
@@ -28,7 +28,8 @@ def main():
     extracted_text = perform_ocr(normalized_images)
     processed_text = process_text(extracted_text)
     padded_columns = pad_columns(processed_text)
-    df = create_dataframe(padded_columns)
+    clean_data = remove_special_characters(padded_columns)
+    df = create_dataframe(clean_data)
     save_dataframe_to_directory(df, args.output_dir, 'output.csv')
 
     # You can access the directories from other modules using config.INPUT_DIR and config.OUTPUT_DIR

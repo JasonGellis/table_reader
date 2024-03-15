@@ -2,7 +2,7 @@ import os
 import cv2
 import pandas as pd
 import pytesseract
-import config
+import re
 
 def read_images(input_dir):
     """
@@ -139,7 +139,39 @@ def pad_columns(processed_data):
 
     return padded_data
 
-def create_dataframe(padded_data):
+
+import re
+
+def remove_special_characters(data, exceptions=['.']):
+    """
+    Remove specified characters from a dataset, excluding decimal values and English letters.
+
+    Parameters:
+        data (list or DataFrame): Dataset to process.
+        exceptions (list): List of characters to exempt from removal (default is ['.'] for decimal values).
+
+    Returns:
+        cleaned_data (list or DataFrame): Dataset with specified characters removed.
+    """
+    if isinstance(data, list):
+        # If data is a list, process each element
+        cleaned_data = [remove_special_characters(element, exceptions) for element in data]
+    elif hasattr(data, 'applymap'):
+        # If data is a DataFrame, process each cell
+        cleaned_data = data.applymap(lambda x: remove_special_characters(x, exceptions))
+    elif isinstance(data, str):
+        # If data is a string, remove specified characters
+        exceptions_regex = ''.join([re.escape(char) for char in exceptions])
+        pattern = f'[^0-9{exceptions_regex}a-zA-Z]'
+        cleaned_data = re.sub(pattern, '', data)
+    else:
+        # For other data types, return as is
+        cleaned_data = data
+    
+    return cleaned_data
+
+
+def create_dataframe(cleaned_data):
     """
     Create a DataFrame from the padded data structure.
 
@@ -149,8 +181,15 @@ def create_dataframe(padded_data):
     Returns:
         df (DataFrame): DataFrame created from the padded data structure.
     """
-    # Create DataFrame from the padded data structure
-    df = pd.DataFrame(padded_data)
+    
+    # Flatten each sublist within padded_data and create a flat list
+    flattened_data = [item for sublist in cleaned_data for item in sublist]
+    
+    # Create DataFrame from the flattened data
+    df = pd.DataFrame(flattened_data, dtype='object') 
+       
+    # Ensure that each value is in its own cell
+    df = df.map(lambda x: x[0] if isinstance(x, list) else x)
     return df
 
 
@@ -172,4 +211,3 @@ def save_dataframe_to_directory(dataframe, output_dir, file_name):
 
     # Save DataFrame to file
     dataframe.to_csv(file_path, index=False)
-

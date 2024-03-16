@@ -1,8 +1,10 @@
+import re
 import os
 import cv2
 import pandas as pd
 import pytesseract
-import re
+
+import configs
 
 def read_images(input_dir):
     """
@@ -44,7 +46,7 @@ def convert_to_grayscale(images):
         for image in images:
             grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Convert image to grayscale
             grayscale_images.append(grayscale_image)
-    
+
     return grayscale_images
 
 def normalize_images(grayscale_images):
@@ -67,7 +69,11 @@ def normalize_images(grayscale_images):
         max_intensity = max(grayscale_image.ravel())
 
         # Normalize the image to stretch contrast
-        normalized_image = cv2.normalize(grayscale_image, None, min_intensity, max_intensity, cv2.NORM_MINMAX)
+        normalized_image = cv2.normalize(grayscale_image,
+                                         None,
+                                         min_intensity,
+                                         max_intensity,
+                                         cv2.NORM_MINMAX)
 
         normalized_images.append(normalized_image)
 
@@ -112,10 +118,10 @@ def process_text(extracted_text):
     for text in extracted_text:
         # Split the text into lines
         lines = text.strip().split('\n')
-        
+
         # Split each line into words
         words = [line.split() for line in lines]
-        
+
         # Append the processed data to the main list
         processed_data.append(words)
 
@@ -139,16 +145,14 @@ def pad_columns(processed_data):
 
     return padded_data
 
-
-import re
-
 def remove_special_characters(data, exceptions=['.']):
     """
     Remove specified characters from a dataset, excluding decimal values and English letters.
 
     Parameters:
         data (list or DataFrame): Dataset to process.
-        exceptions (list): List of characters to exempt from removal (default is ['.'] for decimal values).
+        exceptions (list): List of characters to exempt from
+        removal (default is ['.'] for decimal values).
 
     Returns:
         cleaned_data (list or DataFrame): Dataset with specified characters removed.
@@ -167,7 +171,7 @@ def remove_special_characters(data, exceptions=['.']):
     else:
         # For other data types, return as is
         cleaned_data = data
-    
+
     return cleaned_data
 
 
@@ -181,13 +185,13 @@ def create_dataframe(cleaned_data):
     Returns:
         df (DataFrame): DataFrame created from the padded data structure.
     """
-    
+
     # Flatten each sublist within padded_data and create a flat list
     flattened_data = [item for sublist in cleaned_data for item in sublist]
-    
+
     # Create DataFrame from the flattened data
-    df = pd.DataFrame(flattened_data, dtype='object') 
-       
+    df = pd.DataFrame(flattened_data, dtype='object')
+
     # Ensure that each value is in its own cell
     df = df.map(lambda x: x[0] if isinstance(x, list) else x)
     return df

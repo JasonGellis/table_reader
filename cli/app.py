@@ -1,10 +1,12 @@
+""" Module for table reader main function and argparse"""
+
 import argparse
 
 from read_and_process import read_images, convert_to_grayscale, \
     normalize_images, perform_ocr, process_text, pad_columns, \
         remove_special_characters, create_dataframe, save_dataframe_to_directory
 
-from ..configs import config
+import config
 
 def parse_arguments():
     """

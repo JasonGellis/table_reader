@@ -1,5 +1,5 @@
 import argparse
-from configs import config
+
 from shared_utils.read_and_process import read_images, convert_to_grayscale, \
     normalize_images, perform_ocr, process_text, pad_columns, remove_special_characters, \
     create_dataframe, save_dataframe_to_directory
@@ -20,10 +20,10 @@ def main():
     # Set input and output directories in config module
     config.set_input_directory(args.input_dir)
     config.set_output_directory(args.output_dir)
-    
+
     # functions from read_and_process
     images = read_images(args.input_dir)
-    grayscale_images = convert_to_grayscale(images)    
+    grayscale_images = convert_to_grayscale(images)
     normalized_images = normalize_images(grayscale_images)
     extracted_text = perform_ocr(normalized_images)
     processed_text = process_text(extracted_text)

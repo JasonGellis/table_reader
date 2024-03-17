@@ -47,8 +47,7 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
    ```pip install -r requirements.txt```
 
 6. **Run the application**
-    - ***be sure to include input and output directories in the command line*** \
-
+    - ***be sure to include input and output directories in the command line***
 
     ```python app.py -i /path/to/your/input_directory/ -o /path/to/your/output_directory/```
 

@@ -39,7 +39,7 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
      Conda: ```conda activate table_reader```
 
    - On Windows: \
-     Python: ```.\table_reader\Scripts\activate```
+     Python: ```.\table_reader\Scripts\activate``` \
      Conda: ```conda activate table_reader```
 
 5. **Install dependencies from requirements.txt**
@@ -48,6 +48,7 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 
 6. **Run the application**
     - ***be sure to include input and output directories in the command line*** \
+
 
     ```python app.py -i /path/to/your/input_directory/ -o /path/to/your/output_directory/```
 

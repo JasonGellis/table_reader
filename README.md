@@ -16,12 +16,49 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 - Versatility: Researchers across various fields, including science, engineering, and social sciences, can benefit from Table Reader's ability to digitize and analyze tabular data from diverse sources, such as research publications and field notes.
 - Automation: With its command-line interface, Table Reader supports automation and integration into existing data processing pipelines, facilitating seamless data extraction and analysis workflows.
 
+## Table Reader Installation Guide
+
+### Python  and Conda Virtual Environments
+
+1. **Clone the Repository:**
+
+   ```git clone https://github.com/your_username/table_reader.git```
+
+2. **Navigate to the directory:**
+
+   ```cd table_reader```
+
+3. **Create a Python virtual environment**
+
+   ```python3 -m venv venv```
+
+4. **Activate the virtual environment**
+   - On Mac: \
+     Python: ```source venv/bin/activate``` \
+     Conda: ```conda create --name table_reader python=3.12```
+
+    - On Windows: \
+     Python: ```venv\Scripts\activate```
+     Conda: ```conda create --name table_reader python=3.12```
+
+5. **Install dependencies from requirements.txt**
+
+   ```pip install -r requirements.txt```
+
+6. **Run the application**
+    - ***be sure to include input and output directories in the command line*** \
+
+    ```python app.py -i /path/to/your/input_directort/ -o /path/to/your/output_directort/```
+
+7. **Additional installation requirements**
+   Table Reader uses [Pytesseract](https://pypi.org/project/pytesseract/) which requires the installation of [Google's Tesseract-OCR Engine](https://tesseract-ocr.github.io/tessdoc/Installation.html) on the user's system.
+
 ## Future updates
 
 - Webapp interface
-- Upload multiple images 
+- Upload multiple images
 - Ability to select/deselect image and OCR processing
 - Support for special and non-English characters
-- Ability to handle numbers with a "mid-dot" or "decimal comma" (e.g., writing 2.9 as 2·9). 
+- Ability to handle numbers with a "mid-dot" or "decimal comma" (e.g., writing 2.9 as 2·9).
 
 ## How to cite

@@ -28,18 +28,19 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 
    ```cd table_reader```
 
-3. **Create a Python virtual environment**
+3. **Create a Python/Conda virtual environment**
 
-   ```python3 -m venv venv```
+   Python: ```python3 -m venv table_reader```
+   Conda: ```conda create --name table_reader python=3.12```
 
 4. **Activate the virtual environment**
-   - On Mac: \
-     Python: ```source venv/bin/activate``` \
-     Conda: ```conda create --name table_reader python=3.12```
+   - On macOS and Linux: \
+     Python: ```source table_reader/bin/activate``` \
+     Conda: ```conda activate table_reader```
 
-    - On Windows: \
-     Python: ```venv\Scripts\activate```
-     Conda: ```conda create --name table_reader python=3.12```
+   - On Windows: \
+     Python: ```.\table_reader\Scripts\activate```
+     Conda: ```conda activate table_reader```
 
 5. **Install dependencies from requirements.txt**
 

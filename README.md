@@ -48,7 +48,7 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 6. **Run the application**
     - ***be sure to include input and output directories in the command line*** \
 
-    ```python app.py -i /path/to/your/input_directort/ -o /path/to/your/output_directort/```
+    ```python app.py -i /path/to/your/input_directory/ -o /path/to/your/output_directory/```
 
 7. **Additional installation requirements**
    Table Reader uses [Pytesseract](https://pypi.org/project/pytesseract/) which requires the installation of [Google's Tesseract-OCR Engine](https://tesseract-ocr.github.io/tessdoc/Installation.html) on the user's system.

@@ -54,6 +54,26 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 7. **Additional installation requirements**
    Table Reader uses [Pytesseract](https://pypi.org/project/pytesseract/) which requires the installation of [Google's Tesseract-OCR Engine](https://tesseract-ocr.github.io/tessdoc/Installation.html) on the user's system.
 
+## How to get best results
+
+Images with the following characteristics typically produce the best OCR (Optical Character Recognition) results:
+
+- High Resolution: Images with higher resolution (>= 300 dpi) capture finer details, leading to more accurate text recognition.
+
+- Clear and Sharp Text: Text should be well-defined, free from blurriness, smudges, or distortion, ensuring accurate character recognition.
+
+- High Contrast: Images with distinct contrast between text and background enhance character segmentation and improve OCR accuracy. Table Reader will calculate the minimum and maximum intensity values of the image to adjust contrast.
+
+- Uniform Lighting: Consistent lighting across the image minimizes shadows and variations, aiding in better text extraction.
+
+- Minimal Noise: Images with minimal noise, artifacts, or background clutter are easier for OCR algorithms to process. Table Reader will try to process images to remove noise and sharpen text.
+
+- Correct Orientation: Images with properly aligned text, without skew or rotation, facilitate accurate character alignment and recognition.
+
+- Straightforward Layout: Simple and well-organized layouts with clear text arrangement simplify character segmentation and extraction. Table Reader is built to read text from tables found in scientific publications (spreadsheet format).
+
+Optimizing images to meet these criteria before OCR processing can significantly improve the accuracy and reliability of text recognition results.
+
 ## Future updates
 
 - Webapp interface

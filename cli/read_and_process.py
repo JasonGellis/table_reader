@@ -1,10 +1,10 @@
+""" functions for importing and processing images. """
 import re
 import os
 import cv2
 import pandas as pd
 import pytesseract
 
-import configs
 
 def read_images(input_dir):
     """

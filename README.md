@@ -30,7 +30,7 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 
 3. **Create a Python/Conda virtual environment**
 
-   Python: ```python3 -m venv table_reader```
+   Python: ```python3 -m venv table_reader``` \
    Conda: ```conda create --name table_reader python=3.12```
 
 4. **Activate the virtual environment**

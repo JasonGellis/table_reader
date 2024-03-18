@@ -2,6 +2,16 @@
 
 Table Reader is a Python command-line interface (CLI) application designed to extract data values from tables in research publications and field notes. Leveraging image processing and optical character recognition (OCR) techniques, Table Reader can efficiently extract tabular data from images, enabling researchers to digitize and analyze information from various sources.
 
+- [Table Reader](#table-reader)
+  - [Key Features](#key-features)
+  - [Why Use Table Reader?](#why-use-table-reader)
+  - [Table Reader Installation Guide - Python  and Conda Virtual Environments](#table-reader-installation-guide---python--and-conda-virtual-environments)
+  - [How to get best results](#how-to-get-best-results)
+  - [Future updates](#future-updates)
+  - [How to cite](#how-to-cite)
+
+
+
 ## Key Features
 
 - Optical character recognition (OCR) Processing: Utilizing the powerful Tesseract OCR engine, Table Reader accurately extracts text from images, including tables and tabular data.
@@ -16,9 +26,7 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 - Versatility: Researchers across various fields, including science, engineering, and social sciences, can benefit from Table Reader's ability to digitize and analyze tabular data from diverse sources, such as research publications and field notes.
 - Automation: With its command-line interface, Table Reader supports automation and integration into existing data processing pipelines, facilitating seamless data extraction and analysis workflows.
 
-## Table Reader Installation Guide
-
-### Python  and Conda Virtual Environments
+## Table Reader Installation Guide - Python  and Conda Virtual Environments
 
 1. **Clone the Repository:**
 

@@ -145,7 +145,7 @@ def pad_columns(processed_data):
 
     return padded_data
 
-def remove_special_characters(data, exceptions=['.', '-']):
+def remove_special_characters(data, exceptions=['.']):
     """
     Remove specified characters from a dataset, excluding decimal values and English letters.
 

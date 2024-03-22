@@ -1,3 +1,16 @@
-opencv-python  == 4.9.0
-pandas == 2.2.1
-pytesseract == 0.3.13
+# This file lists all the Python libraries and their versions required for the project
+
+# OpenCV: A library for computer vision and image processing
+opencv-python==4.9.0  # Version 4.9.0 of OpenCV library
+
+# Pandas: A powerful data analysis and manipulation library
+pandas==2.2.1  # Version 2.2.1 of Pandas library
+
+# Pytesseract: A wrapper for Google's Tesseract-OCR Engine, used for Optical Character Recognition (OCR)
+pytesseract==0.3.13  # Version 0.3.13 of Pytesseract library
+
+# Flask: A lightweight WSGI web application framework
+Flask==2.0.1  # Version 2.0.1 of Flask framework
+
+# Pillow: A Python Imaging Library (PIL) fork, used for image processing tasks
+Pillow==8.3.1  # Version 8.3.1 of Pillow library

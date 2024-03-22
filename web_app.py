@@ -1,56 +1,41 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, render_template, send_from_directory
 import os
-from shared_utils.read_and_process import read_images, convert_to_grayscale, normalize_images, perform_ocr, process_text, pad_columns, remove_special_characters, create_dataframe, save_dataframe_to_directory
+from werkzeug.utils import secure_filename
+from web.read_and_process import read_images, process_image  # Assuming process_image is another function you want to use
 
 app = Flask(__name__)
 
-# Route to upload images and process them
+# Configuration
+UPLOAD_FOLDER = 'static/images'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    """Check if the file extension is allowed."""
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route('/', methods=['GET', 'POST'])
-def upload_and_process():
+def upload_file():
+    """Handle file uploads and processing."""
     if request.method == 'POST':
-        # Get the uploaded files
-        uploaded_files = request.files.getlist('file')
-        if uploaded_files:
-            # Save the uploaded images to a temporary directory
-            upload_dir = 'uploads'
-            os.makedirs(upload_dir, exist_ok=True)
-            for file in uploaded_files:
-                file_path = os.path.join(upload_dir, file.filename)
-                file.save(file_path)
-
-            # Read the uploaded images
-            images = read_images(upload_dir)
-
-            # Convert images to grayscale
-            grayscale_images = convert_to_grayscale(images)
-
-            # Normalize grayscale images
-            normalized_images = normalize_images(grayscale_images)
-
-            # Perform OCR on normalized images
-            extracted_text = perform_ocr(normalized_images)
-
-            # Process extracted text
-            processed_data = process_text(extracted_text)
-
-            # Pad columns
-            padded_data = pad_columns(processed_data)
-
-            # Remove special characters
-            cleaned_data = remove_special_characters(padded_data)
-
-            # Create DataFrame
-            df = create_dataframe(cleaned_data)
-
-            # Save DataFrame to a directory
-            output_dir = 'output'
-            os.makedirs(output_dir, exist_ok=True)
-            save_dataframe_to_directory(df, output_dir, 'output.csv')
-
-            # Pass processed data to the template for display
-            return render_template('result.html', data=df.to_html())
-
-    return render_template('upload.html')
+        # Check if the post request has the file part
+        if 'file' not in request.files:
+            return render_template('index.html', message='No file part')
+        file = request.files['file']
+        # If the user does not select a file, the browser submits an empty file without a filename.
+        if file.filename == '':
+            return render_template('index.html', message='No selected file')
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            # Process the image
+            processed_image_path = read_images(filepath)  # Modify this according to how you want to use the function
+            # Assuming read_images or another function returns the path of the processed image
+            return send_from_directory(directory=os.path.dirname(processed_image_path), filename=os.path.basename(processed_image_path), as_attachment=True)
+    # If not a POST request, show the upload form.
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

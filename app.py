@@ -1,10 +1,11 @@
 """ Module for table reader main function and argparse"""
 
 import argparse
-
-from cli.read_and_process import read_images, convert_to_grayscale, \
+import os
+import cv2
+from cli.read_and_process import convert_to_grayscale, \
     normalize_images, perform_ocr, process_text, pad_columns, \
-        remove_special_characters, create_dataframe, save_dataframe_to_directory
+    remove_special_characters, create_dataframe, save_dataframe_to_directory
 
 import config
 
@@ -25,14 +26,12 @@ def parse_arguments():
     return args
 
 def main():
-
     """
-    Process images and text files according to specified input and output directories.
+    Process multiple images and save output data frames to CSV files.
 
-    Parses command-line arguments to set input and output directories. Then, reads images
-    from the input directory, converts them to grayscale, normalizes them, performs OCR
-    to extract text, processes the extracted text, pads columns, removes special characters,
-    creates a DataFrame, and finally saves the DataFrame to the output directory as 'output.csv'.
+    Parses command-line arguments to set input and output directories.
+    Reads images from the input directory, processes each image, and
+    saves the extracted data to separate CSV files in the output directory.
 
     Args:
         None (Uses command-line arguments for input and output directories)
@@ -47,18 +46,30 @@ def main():
     config.set_input_directory(args.input_dir)
     config.set_output_directory(args.output_dir)
 
-    # functions from read_and_process
-    images = read_images(args.input_dir)
-    grayscale_images = convert_to_grayscale(images)
-    normalized_images = normalize_images(grayscale_images)
-    extracted_text = perform_ocr(normalized_images)
-    processed_text = process_text(extracted_text)
-    padded_columns = pad_columns(processed_text)
-    clean_data = remove_special_characters(padded_columns)
-    df = create_dataframe(clean_data)
-    save_dataframe_to_directory(df, args.output_dir, 'output.csv')
+    # Read all images from the input directory
+    image_files = [f for f in os.listdir(args.input_dir) if f.endswith(('.jpg', '.jpeg', '.png', '.bmp', '.gif', '.tiff'))]
 
-    # You can access the directories from other modules using config.INPUT_DIR and config.OUTPUT_DIR
+    # Process each image separately
+    for image_file in image_files:
+        image_path = os.path.join(args.input_dir, image_file)
+
+        # Read the image directly using OpenCV
+        image = cv2.imread(image_path)
+        if image is None:
+            print(f"Warning: Unable to read image {image_path}")
+            continue
+
+        grayscale_image = convert_to_grayscale([image])[0]  # Process single image in list format
+        normalized_image = normalize_images([grayscale_image])[0]
+        extracted_text = perform_ocr([normalized_image])[0]
+        processed_text = process_text([extracted_text])
+        padded_columns = pad_columns(processed_text)
+        clean_data = remove_special_characters(padded_columns)
+        df = create_dataframe(clean_data)
+
+        # Save DataFrame to output directory with a unique filename
+        output_filename = f"{os.path.splitext(image_file)[0]}_output.csv"
+        save_dataframe_to_directory(df, args.output_dir, output_filename)
 
 if __name__ == "__main__":
     main()

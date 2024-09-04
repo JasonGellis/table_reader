@@ -145,18 +145,20 @@ def pad_columns(processed_data):
 
     return padded_data
 
-def remove_special_characters(data, exceptions=['.', '-']):
+def remove_special_characters(data, exceptions=None):
     """
     Remove specified characters from a dataset, excluding decimal values and English letters.
 
     Parameters:
         data (list or DataFrame): Dataset to process.
-        exceptions (list): List of characters to exempt from
-        removal (default is ['.'] for decimal values).
+        exceptions (list): List of characters to exempt from removal (default is ['.', ',']).
 
     Returns:
         cleaned_data (list or DataFrame): Dataset with specified characters removed.
     """
+    if exceptions is None:
+        exceptions = ['.', ',']  # Initialize default exceptions list inside the function
+
     if isinstance(data, list):
         # If data is a list, process each element
         cleaned_data = [remove_special_characters(element, exceptions) for element in data]

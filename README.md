@@ -5,10 +5,9 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 - [Table Reader](#table-reader)
   - [Key Features](#key-features)
   - [Why Use Table Reader?](#why-use-table-reader)
-  - [Table Reader Installation Guide - Python  and Conda Virtual Environments](#table-reader-installation-guide---python--and-conda-virtual-environments)
+  - [Table Reader Installation Guide](#table-reader-installation-guide)
   - [How to get best results](#how-to-get-best-results)
   - [Future updates](#future-updates)
-  - [How to cite](#how-to-cite)
 
 
 
@@ -26,7 +25,7 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 - Versatility: Researchers across various fields, including science, engineering, and social sciences, can benefit from Table Reader's ability to digitize and analyze tabular data from diverse sources, such as research publications and field notes.
 - Automation: With its command-line interface, Table Reader supports automation and integration into existing data processing pipelines, facilitating seamless data extraction and analysis workflows.
 
-## Table Reader Installation Guide - Python  and Conda Virtual Environments
+## Table Reader Installation Guide
 
 1. **Clone the Repository:**
 
@@ -36,30 +35,16 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 
    ```cd table_reader```
 
-3. **Create a Python/Conda virtual environment**
+3. **Install the package locally using pip:**
 
-   Python: ```python3 -m venv table_reader``` \
-   Conda: ```conda create --name table_reader python=3.12```
+   ```pip install .```
 
-4. **Activate the virtual environment**
-   - On macOS and Linux: \
-     Python: ```source table_reader/bin/activate``` \
-     Conda: ```conda activate table_reader```
-
-   - On Windows: \
-     Python: ```.\table_reader\Scripts\activate``` \
-     Conda: ```conda activate table_reader```
-
-5. **Install dependencies from requirements.txt**
-
-   ```pip install -r requirements.txt```
-
-6. **Run the application**
+4. **Run the CLI tool**
     - ***be sure to include input and output directories in the command line***
 
-    ```python app.py -i /path/to/your/input_directory/ -o /path/to/your/output_directory/```
+    ```tablereader --input-dir /path/to/input --output-dir /path/to/output```
 
-7. **Additional installation requirements**
+5. **Additional installation requirements**
    Table Reader uses [Pytesseract](https://pypi.org/project/pytesseract/) which requires the installation of [Google's Tesseract-OCR Engine](https://tesseract-ocr.github.io/tessdoc/Installation.html) on the user's system.
 
 ## How to get best results
@@ -89,5 +74,3 @@ Optimizing images to meet these criteria before OCR processing can significantly
 - Ability to select/deselect image and OCR processing
 - Support for special and non-English characters
 - Ability to handle numbers with a "mid-dot" or "decimal comma" (e.g., writing 2.9 as 2·9).
-
-## How to cite

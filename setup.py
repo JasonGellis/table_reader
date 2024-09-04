@@ -1,6 +1,21 @@
+"""
+Setup script for the Table Reader application.
+
+This script uses setuptools to package the Table Reader Python application,
+making it easy to install and use as a command-line tool. The script defines
+metadata about the package, its dependencies, and the entry point for the CLI.
+
+To install the package, run:
+
+    pip install .
+
+After installation, you can use the 'tablereader' command from the terminal to
+run the application.
+"""
+
 from setuptools import setup, find_packages
 
-with open("requirements.txt", "r") as f:
+with open("requirements.txt", "r", encoding="utf-8") as f:
     REQUIRED_PACKAGES = f.read().splitlines()
 
 setup(
@@ -19,7 +34,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'tablereader=app:main',  # This is where you define the CLI command and the entry point
+            'tablereader=app:main',
         ],
     },
     classifiers=[

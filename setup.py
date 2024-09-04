@@ -34,7 +34,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'tablereader=app:main',
+            'tablereader=app:main',  # This is where you define the CLI command and the entry point
         ],
     },
     classifiers=[

@@ -11,17 +11,38 @@ import config
 
 def parse_arguments():
     """
-    Parse command-line arguments.
+    Parse command-line arguments for the Table Reader application.
+
+    This function sets up and parses the command-line arguments required
+    for the application to run. It requires the user to specify the input
+    directory containing images to process and the output directory where
+    the results will be saved.
+
+    Returns:
+        argparse.Namespace: Parsed command-line arguments with input and output directories.
     """
-    parser = argparse.ArgumentParser(description="Process tables and output data frames")
-    parser.add_argument("-i", "--input-dir",
-                        help="Path to input directory",
-                        default=config.DEFAULT_INPUT_DIR,
-                        required=True)
-    parser.add_argument("-o", "--output-dir",
-                        help="Path to output directory",
-                        default=config.DEFAULT_OUTPUT_DIR,
-                        required=True)
+    parser = argparse.ArgumentParser(
+        description=(
+            "Table Reader: A command-line tool for processing tables "
+            "from images and outputting data frames."
+        ),
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+
+    parser.add_argument(
+        "-i", "--input-dir",
+        help="Path to the input directory containing images to process.",
+        default=config.DEFAULT_INPUT_DIR,
+        required=True
+    )
+
+    parser.add_argument(
+        "-o", "--output-dir",
+        help="Path to the output directory where processed data frames will be saved as CSV files.",
+        default=config.DEFAULT_OUTPUT_DIR,
+        required=True
+    )
+
     args = parser.parse_args()
     return args
 

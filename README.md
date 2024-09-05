@@ -70,7 +70,5 @@ Optimizing images to meet these criteria before OCR processing can significantly
 
 ## Future updates
 
-- Webapp interface
-- Ability to select/deselect image and OCR processing
 - Support for special and non-English characters
 - Ability to handle numbers with a "mid-dot" or "decimal comma" (e.g., writing 2.9 as 2·9).

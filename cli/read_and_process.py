@@ -79,27 +79,70 @@ def normalize_images(grayscale_images):
 
     return normalized_images
 
-
 def perform_ocr(normalized_images):
     """
-    Perform OCR (optical character recognition) on a list of images.
+    Perform OCR (optical character recognition) on a list of images with enhanced
+    handling for special characters and table structures.
 
     Parameters:
-        images (list): List of input images.
+        normalized_images (list): List of input images.
 
     Returns:
         extracted_text (list): List of extracted text from each image.
     """
-    # Initialize an empty list to store extracted text
     extracted_text = []
 
-    # Iterate over each image in the input list
+    # Custom Tesseract configuration without strict whitelisting
+    custom_config = (
+        r'--oem 3 --psm 6 '  # Use LSTM OCR Engine and assume a block of text (table)
+        r'-c preserve_interword_spaces=1'  # Preserve spacing between words (useful for tables)
+    )
+
     for normal_image in normalized_images:
-        # Perform OCR on the image
-        text = pytesseract.image_to_string(normal_image, lang = 'eng')
-        extracted_text.append(text)
+        # Perform OCR with custom configuration
+        text = pytesseract.image_to_string(normal_image, config=custom_config, lang='eng')
+
+        # Post-process text to handle common OCR issues
+        corrected_text = correct_common_ocr_mistakes(text)
+        extracted_text.append(corrected_text)
 
     return extracted_text
+
+def correct_common_ocr_mistakes(text):
+    """
+    Correct common OCR mistakes related to special characters, superscripts, and subscripts.
+
+    Parameters:
+        text (str): Text output from OCR.
+
+    Returns:
+        corrected_text (str): Text with common OCR mistakes corrected.
+    """
+    # List of characters that might be misrecognized as mid-dots or similar
+    mid_dot_variants = ['·', '•', 'o', '°', '˙']  # Potential misrecognitions of mid-dot
+
+    for variant in mid_dot_variants:
+        text = text.replace(variant, '.')
+
+    # Dictionary to correct OCR misinterpretations
+    corrections = {
+        ',': ',',  # Ensure decimal comma is preserved
+        '--': '—',  # Convert double hyphen to em dash (if OCR mistakes are found)
+        '-': '-',  # Ensure standard hyphen is preserved
+        # Example: OCR misinterpreting '10' as '1o'
+        '1o': '10', '2o': '20', '3o': '30','4o': '40','5o': '50',
+        '6o': '60', '7o': '70', '8o': '80','9o': '90','0o': '00',
+       # Example correction for letters that look like numbers
+        'S1': '51', 'S2': '52','S3': '53','S4': '54','S5': '55',
+        'S6': '56','S7': '57','S8': '58','S9': '59','S0': '50',
+        '·': '.',  # Ensure mid-dot conversion to decimal
+        '–': '—',  # Ensure en dash is preserved (or converted to em dash if needed)
+    }
+
+    for wrong, correct in corrections.items():
+        text = text.replace(wrong, correct)
+
+    return text
 
 def process_text(extracted_text):
     """
@@ -157,7 +200,7 @@ def remove_special_characters(data, exceptions=None):
         cleaned_data (list or DataFrame): Dataset with specified characters removed.
     """
     if exceptions is None:
-        exceptions = ['.', ',']  # Initialize default exceptions list inside the function
+        exceptions = []  # Initialize default exceptions list inside the function
 
     if isinstance(data, list):
         # If data is a list, process each element

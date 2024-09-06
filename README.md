@@ -107,10 +107,10 @@ This command will apply custom corrections, limit the output to numbers, and rem
 
 **Summary of Key Features**
 
-- Whitelist (-w --whitelist): Restrict OCR output to specific characters.
-- Blacklist (-b --blacklist): Remove unwanted characters from the OCR output.
-- Custom Character Corrections (-c --char-corrections): Override OCR mistakes with your own corrections.
-- Show Default Corrections (-d --show-default-corrections): View the default OCR corrections used by Table Reader.
+- Whitelist ```(-w --whitelist)```: Restrict OCR output to specific characters.
+- Blacklist ```(-b --blacklist)```: Remove unwanted characters from the OCR output.
+- Custom Character Corrections ```(-c --char-corrections)```: Override OCR mistakes with your own corrections.
+- Show Default Corrections ```(-d --show-default-corrections)```: View the default OCR corrections used by Table Reader.
 
 These features give you full control over how the OCR engine processes your images and handles text extraction, allowing for precise and customizable results.
 

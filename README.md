@@ -53,6 +53,8 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 
    ```tablereader --input-dir /path/to/input --output-dir /path/to/output```
 
+This will run all images in your input directory and output them as .csv files to your output directory.
+
 ### ***Available Command-Line Options***
 
 **Whitelist Certain Characters**

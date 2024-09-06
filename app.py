@@ -25,14 +25,6 @@ def setup_logging():
 def parse_arguments():
     """
     Parse command-line arguments for the Table Reader application.
-
-    This function sets up and parses the command-line arguments required
-    for the application to run. It requires the user to specify the input
-    directory containing images to process and the output directory where
-    the results will be saved.
-
-    Returns:
-        argparse.Namespace: Parsed command-line arguments with input and output directories.
     """
     parser = argparse.ArgumentParser(
         description=(
@@ -56,8 +48,46 @@ def parse_arguments():
         required=True
     )
 
+    # New arguments
+    parser.add_argument(
+        "-w", "--whitelist",
+        help="Characters to whitelist (preserve) in OCR output.",
+        default="",  # No whitelist by default
+    )
+
+    parser.add_argument(
+        "-b", "--blacklist",
+        help="Characters to remove from OCR output.",
+        default="",  # No blacklist by default
+    )
+
+    parser.add_argument(
+        "-c", "--char-corrections",
+        help="Custom character corrections for misread letters, numbers, or combinations of - e.g., 'S1:51, S2:52'.",
+        default="",  # No custom corrections by default
+    )
+
     args = parser.parse_args()
     return args
+
+def parse_char_corrections(correction_string):
+    """
+    Parse the custom character corrections from the user-provided string.
+
+    Parameters:
+        correction_string (str): String containing custom character corrections
+                                 in the format 'S1:51,S2:52'.
+
+    Returns:
+        dict: A dictionary mapping incorrect characters to correct ones.
+    """
+    corrections = {}
+    if correction_string:
+        for pair in correction_string.split(','):
+            if ':' in pair:
+                key, value = pair.split(':', 1)
+                corrections[key] = value
+    return corrections
 
 def main():
     """

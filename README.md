@@ -6,7 +6,10 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
   - [Key Features](#key-features)
   - [Why Use Table Reader?](#why-use-table-reader)
   - [Table Reader Installation Guide](#table-reader-installation-guide)
-  - [How to get best results](#how-to-get-best-results)
+  - [Table Reader Instruction Guide](#table-reader-instruction-guide)
+    - [***Run the CLI tool***](#run-the-cli-tool)
+    - [***Available Command-Line Options***](#available-command-line-options)
+  - [How to get best results from images](#how-to-get-best-results-from-images)
   - [Future updates](#future-updates)
 
 
@@ -40,15 +43,78 @@ Table Reader is a Python command-line interface (CLI) application designed to ex
 
    ```pip install .```
 
-4. **Run the CLI tool**
-    - ***be sure to include input and output directories in the command line***
-
-    ```tablereader --input-dir /path/to/input --output-dir /path/to/output```
-
-5. **Additional installation requirements**
+4. **Additional installation requirements**
    Table Reader uses [Pytesseract](https://pypi.org/project/pytesseract/) which requires the installation of [Google's Tesseract-OCR Engine](https://tesseract-ocr.github.io/tessdoc/Installation.html) on the user's system.
 
-## How to get best results
+## Table Reader Instruction Guide
+
+### ***Run the CLI tool***
+   - ***be sure to include input and output directories in the command line***
+
+   ```tablereader --input-dir /path/to/input --output-dir /path/to/output```
+
+### ***Available Command-Line Options***
+
+**Whitelist Certain Characters**
+
+Use the ```--whitelist``` flag to limit the characters that are allowed in the OCR output. Any character not in the whitelist will be removed.
+
+*Example*: To only allow numeric characters and common punctuation (like periods and commas):
+
+```tablereader --input-dir /path/to/input --output-dir /path/to/output --whitelist "0123456789.,"```
+
+This will ensure that only the specified characters remain in the processed output.
+
+**Blacklist Certain Characters**
+
+Use the ```--blacklist``` flag to remove specific characters from the OCR output. Any character in the blacklist will be stripped from the processed text.
+
+*Example*: To remove common punctuation (like commas and periods):
+
+```tablereader --input-dir /path/to/input --output-dir /path/to/output --blacklist ",."```
+
+This will remove the specified characters from the final output while leaving others intact.
+
+**Custom Character Corrections**
+
+The ```--char-corrections``` flag allows you to specify custom corrections to OCR misinterpretations. You can provide character corrections in the format wrong:correct, separating multiple corrections with commas.
+
+*Example*: To correct instances where S1 is misread as 51 and A1 as 41:
+
+```tablereader --input-dir /path/to/input --output-dir /path/to/output --char-corrections "S1:51,A1:41"```
+
+This will apply your custom corrections during the OCR processing.
+
+**Show Default Character Corrections**
+
+Table Reader comes with a set of default OCR corrections for common misinterpretations. You can view these default corrections without running the full processing pipeline with ```tablereader --show-default-corrections```.
+
+**Help**
+
+To view all available options and their usage, run: ```tablereader --help```
+
+This will display a list of all available flags and descriptions for using Table Reader.
+
+**Combining Flags**
+
+You can combine these flags to further customize how Table Reader processes your images.
+
+*Example*: To apply custom corrections, restrict the output to numeric characters and remove commas:
+
+```tablereader --input-dir /path/to/input --output-dir /path/to/output --char-corrections "S1:51" --whitelist "0123456789" --blacklist ","```
+
+This command will apply custom corrections, limit the output to numbers, and remove commas from the final output.
+
+**Summary of Key Features**
+
+    Whitelist -w (--whitelist): Restrict OCR output to specific characters.
+    Blacklist (-b --blacklist): Remove unwanted characters from the OCR output.
+    Custom Character Corrections (-c --char-corrections): Override OCR mistakes with your own corrections.
+    Show Default Corrections (-d --show-default-corrections): View the default OCR corrections used by Table Reader.
+
+These features give you full control over how the OCR engine processes your images and handles text extraction, allowing for precise and customizable results.
+
+## How to get best results from images
 
 Images with the following characteristics typically produce the best OCR (Optical Character Recognition) results:
 
@@ -71,4 +137,3 @@ Optimizing images to meet these criteria before OCR processing can significantly
 ## Future updates
 
 - Support for special and non-English characters
-- Ability to handle numbers with a "mid-dot" or "decimal comma" (e.g., writing 2.9 as 2·9).
